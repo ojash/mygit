@@ -1,10 +1,9 @@
 class NotificationsController < ApplicationController
   before_action :set_notification, only: [:show, :edit, :update, :destroy]
-
+  skip_before_action :verify_authenticity_token, only: [:create]
   # GET /notifications
   # GET /notifications.json
   def index
-    binding.pry
     @notifications = Notification.all
     @samp = request.GET
   end
@@ -26,9 +25,9 @@ class NotificationsController < ApplicationController
   # POST /notifications
   # POST /notifications.json
   def create
-    binding.pry
-    @notification = Notification.new(notification_params)
-    @notification.content = request.POST.to_s
+    # @notification = Notification.new(notification_params)
+    @notification = Notification.new()
+    @notification.payload = request.POST.to_s
     respond_to do |format|
       if @notification.save
         format.html { redirect_to @notification, notice: 'Notification was successfully created.' }
@@ -72,6 +71,6 @@ class NotificationsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def notification_params
-    params.require(:notification).permit(:content)
+    params.require(:notification).permit(:payload)
   end
 end

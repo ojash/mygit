@@ -11,10 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140121041622) do
+ActiveRecord::Schema.define(version: 20140121105037) do
 
   create_table "notifications", force: true do |t|
-    t.string   "content"
+    t.text     "payload"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
